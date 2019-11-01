@@ -1,9 +1,9 @@
 'use strict';
 
-var Entry = require('../model/appModel.js');
+var User = require('../model/appModel.js');
 
-exports.list_all_entries = function(req, res){
-    Entry.getAllEntries(function(err, user){
+exports.list_all_user = function(req, res){
+    User.getAllUser(function(err, user){
         console.log('controller');
         if(err){
             res.send(err);
@@ -11,15 +11,17 @@ exports.list_all_entries = function(req, res){
             console.log('res', user);
             res.json(user);
         }
-    });
+    }); 
 };
 
-// exports.read_user = function(req, res){
-//     User.getUserById(req.params.userId, function(err, user){
-//         if(err){
-//             res.send(err);
-//         } else {
-//             res.json(user);
-//         }
-//     })
-// }
+exports.insert_user = function(req, res){
+    var new_user = new User(req.body);
+
+    User.insertUser(new_user, function(err, user){
+        if(err){
+            res.send(err);
+        } else {
+            res.json(user);
+        }
+    });
+};

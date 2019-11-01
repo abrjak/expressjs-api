@@ -9,7 +9,7 @@ const mc = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     password : '',
-    database : 'orc_clone' 
+    database : 'grafana_tst' 
 });
 
 mc.connect();

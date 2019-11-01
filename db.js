@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     password : '',
-    database : 'orc_clone'
+    database : 'grafana_tst'
 });
 
 connection.connect(function(error){

@@ -2,14 +2,15 @@
 
 var sql = require('../../db.js');
 
-var Entry = function(entry){
-this.PSC_UNIQUE_NAME = entry.PSC_UNIQUE_NAME;
-this.PSC_NAME = entry.PSC_NAME;
-this.PSC_DEPLOYED_AT = entry.PSC_DEPLOYED_AT;
-};
+var User = function(user){
+    this.bkey = user.bkey;
+    this.firstname = user.firstname;
+    this.lastname = user.firstname;
+    this.created_at = new Date();
+}
 
-Entry.getAllEntries = function(result){
-    sql.query("SELECT PSC_UNIQUE_NAME, PSC_NAME, PSC_DEPLOYED_AT FROM orc_clone_process_scenario_history", function (err, res){
+User.getAllUser = function(result){
+    sql.query("SELECT * FROM test_data", function (err, res){
         if(err){
             console.log('error: ', err);
             result(null, err);
@@ -20,16 +21,16 @@ Entry.getAllEntries = function(result){
     });
 };
 
-// User.getUserById = function(userId, result){
-//     sql.query("SELECT * FROM test_data WHERE bkey = ?", userId, function(err, res){
-//         if(err){
-//             console.log('error: ', err);
-//             result(null, err);
-//         } else {
-//             console.log('user : ', res);
-//             result(null, res);
-//         }
-//     });
-// };
+User.insertUser = function(newUser, result){
+    sql.query("INSERT INTO test_data set ?", newUser, function(err, res){
+        if(err){
+            console.log("error: ", err);
+            result(err, null);
+        } else {
+            console.log(res.insertId);
+            result(null, res.insertId);
+        }
+    });
+};
 
-module.exports = Entry;
+module.exports = User;
