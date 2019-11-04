@@ -5,19 +5,24 @@ var sql = require('../../db.js');
 const StringBuilder = require("string-builder");
 let sb = new StringBuilder();
 
-//sb.append('<pre style="word-wrap: break-word; white-space: pre-wrap;">\n');
-sb.append('# HELP http_requests_total The total number of HTTP requests.\n');
-sb.append('# TYPE http_requests_total counter\n');
-sb.append('orc_http_requests_total{method="post",code="200"} 1027 ').append(new Date().getTime()).append('\n'); 
-sb.append('orc_http_requests_total{method="post",code="400"}    3 ').append(new Date().getTime()).append('\n'); 
-var query = sb.toString();
-
 var Data = function(data){
     this.prom = data.prom;
 };
 
-Data.getData = function(result){  
-    result(null, query);
+Data.getData = function(result){
+    sql.query("SELECT COUNT(*) AS count FROM test_data", function(err, res){
+        if(err){
+            console.log(err);
+            result(null, err);
+        } else {
+            var count = res[0].count;
+            sb.append('# HELP orc_user_total The total number of User in DB.\n');
+            sb.append('# TYPE orc_user_total counter\n');
+            sb.append('orc_user_total{method="post",code="200"} ').append(count).append(' ').append(new Date().getTime()).append('\n'); 
+            result(null, sb.toString());
+            sb.clear();
+        }
+    });  
 };
 
 module.exports = Data;
