@@ -3,9 +3,8 @@
 var sql = require('../../db.js');
 
 var User = function(user){
-    this.bkey = user.bkey;
-    this.firstname = user.firstname;
-    this.lastname = user.firstname;
+    this.id = user.id;
+    this.name = user.name;
     this.created_at = new Date();
 }
 
