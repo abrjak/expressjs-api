@@ -15,7 +15,7 @@ User.getAllUser = function(result){
             console.log('error: ', err);
             result(null, err);
         } else {
-            console.log('user : ', res);
+            // console.log('user : ', res);
             result(null, res);
         }
     });
@@ -27,7 +27,7 @@ User.insertUser = function(newUser, result){
             console.log("error: ", err);
             result(err, null);
         } else {
-            console.log(res.insertId);
+            // console.log(res.insertId);
             result(null, res.insertId);
         }
     });
