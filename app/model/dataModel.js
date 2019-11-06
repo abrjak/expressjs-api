@@ -18,11 +18,23 @@ Data.getData = function(result){
             var count = res[0].count;
             sb.append('# HELP orc_user_total The total number of User in DB.\n');
             sb.append('# TYPE orc_user_total counter\n');
-            sb.append('orc_user_total{method="post",code="200"} ').append(count).append(' ').append(new Date().getTime()).append('\n'); 
-            result(null, sb.toString());
-            sb.clear();
+            sb.append('orc_user_total{method="post",code="200"} ').append(count).append(' ').append(new Date().getTime()).append('\n');           
         }
-    });  
+    });
+
+    sql.query("SELECT COUNT(*) AS count FROM test_data WHERE valid = 0", function(err, res){
+        if(err){
+            console.log(err);
+            result(null, err);
+        } else  {
+            var count = res[0].count;
+            sb.append('# HELP orc_user_invalid_total The total number of invalid User in DB.\n');
+            sb.append('# TYPE orc_user_invalid_total counter\n');
+            sb.append('orc_user_invalid_total{method="post",code="200"} ').append(count).append(' ').append(new Date().getTime()).append('\n');
+        }
+    });
+    result(null, sb.toString()); 
+    sb.clear(); 
 };
 
 module.exports = Data;
