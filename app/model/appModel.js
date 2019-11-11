@@ -6,6 +6,7 @@ var User = function(user){
     this.id = user.id;
     this.name = user.name;
     this.created_at = new Date();
+    this.valid = user.valid;
 }
 
 User.getAllUser = function(result){
